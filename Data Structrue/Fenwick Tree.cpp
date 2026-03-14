@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 template <class T>
 class FenwickTree {
@@ -8,7 +8,9 @@ private:
     constexpr auto lowbit(auto x) { return x&-x; }
 public:
     FenwickTree(size_t _n): n(_n), a(_n+1) {}
-    void add(int pos, T v) { for(int i=pos; i<=n; i+=lowbit(i)) a[i] = a[i] + v; }
+    void add(int pos, T v) {
+        for(int i=pos; i<=n; i+=lowbit(i)) a[i] = a[i] + v;
+    }
     void init(size_t n, T val = T{}) {
         this->n = n;
         a.assign(n+1, val);

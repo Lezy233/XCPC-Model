@@ -54,8 +54,8 @@ public:
 
     bool merge(int u, int v) { // u->v
         u = find(u), v = find(v);
-        if(u == v) return false;
-        if(siz[u] > siz[v]) std::swap(u, v);
+        if (u == v) return false;
+        if (siz[u] > siz[v]) std::swap(u, v);
         hsiz.emplace_back(siz[v], siz[v]);
         siz[v] += siz[u];
         hset.emplace_back(set[u], set[u]);
@@ -65,8 +65,8 @@ public:
     /// @brief ver非负:滚回到第 ver 个版本; ver负数:滚回几个版本
     /// @param ver 版本号
     void roll(int ver = -1) {
-        if(ver < 0) ver += hsiz.size();
-        while(hsiz.size() > ver) {
+        if (ver < 0) ver += hsiz.size();
+        while (hsiz.size() > ver) {
             hset.back().first = hset.back().second;
             hset.pop_back();
             hsiz.back().first = hsiz.back().second;

@@ -5,7 +5,7 @@
 
 // P5494
 #include <bits/stdc++.h>
-using std::cin,std::cout,std::vector,std::array;
+using std::cin, std::cout, std::vector, std::array;
 #define endl "\n"
 typedef long long ll;
 

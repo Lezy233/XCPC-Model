@@ -15,20 +15,20 @@ private:
     }
 
     void _update(int rt, int rtL, int rtR, int pos, const Info &v) {
-        if(rtR-rtL == 1) { info[rt] = v; return; }
+        if (rtR-rtL == 1) { info[rt] = v; return; }
         auto mid = std::midpoint(rtL, rtR);
-        if(pos < mid) _update(ls, rtL, mid, pos, v);
+        if (pos < mid) _update(ls, rtL, mid, pos, v);
         else _update(rs, mid, rtR, pos, v);
         push_up(rt);
     }
 
     Info _query(int rt, int rtL, int rtR, int L, int R) {
-        if(rtR <= L || R <= rtL) return Info();
-        if(L <= rtL && R >= rtR) return info[rt];
+        if (rtR <= L || R <= rtL) return Info();
+        if (L <= rtL && R >= rtR) return info[rt];
         Info res = Info();
         auto mid = std::midpoint(rtL, rtR);
-        if(L < mid && R > mid) res = _query(ls, rtL, mid, L, R)+_query(rs, mid, rtR, L, R);
-        else if(L < mid) res = _query(ls, rtL, mid, L, R);
+        if (L < mid && R > mid) res = _query(ls, rtL, mid, L, R) + _query(rs, mid, rtR, L, R);
+        else if (L < mid) res = _query(ls, rtL, mid, L, R);
         else res = _query(rs, mid, rtR, L, R);
         return res;
     }
@@ -36,7 +36,7 @@ public:
     int n;
     SegmentTree(int _n, Info _v=Info()): n(_n), info(4<<std::__lg(_n)) {
         auto build = [&](auto self, int rt, int rtL, int rtR) {
-            if(rtR-rtL == 1) { info[rt] = _v; return; }
+            if (rtR-rtL == 1) { info[rt] = _v; return; }
             auto mid = std::midpoint(rtL, rtR);
             self(self, ls, rtL, mid);
             self(self, rs, mid, rtR);
@@ -45,8 +45,8 @@ public:
         build(build, 1, 0, _n);
     }
     SegmentTree(std::vector<Info>&_init): n(_init.size()), info(4<<std::__lg(_init.size())) {
-        auto build = [&](auto self, int rt, int rtL, int rtR){
-            if(rtR-rtL == 1) { info[rt] = _init[rtL]; return; }
+        auto build = [&](auto self, int rt, int rtL, int rtR) {
+            if (rtR-rtL == 1) { info[rt] = _init[rtL]; return; }
             auto mid = std::midpoint(rtL, rtR);
             self(self, ls, rtL, mid);
             self(self, rs, mid, rtR);
@@ -69,7 +69,7 @@ struct Info {
 
 inline Info operator+(const Info &a, const Info &b) {
     Info c;
-    c.cnt = a.cnt+b.cnt;
+    c.cnt = a.cnt + b.cnt;
     c.min = std::min(a.min, b.min);
     return c;
 }
@@ -96,7 +96,7 @@ private:
         n=_init.size();
         info.assign(4<<std::__lg(n), Info());
         auto build=[&](auto self,int rt,int rtL,int rtR){
-            if(rtL==rtR){ info[rt]=_init[rtL]; return; }
+            if (rtL==rtR){ info[rt]=_init[rtL]; return; }
             self(self,ls,rtL,mid);
             self(self,rs,mid+1,rtR);
             push_up(rt);
@@ -105,18 +105,18 @@ private:
     }
 
     void _update(int rt,int rtL,int rtR,int pos,const Info &v) {
-        if(rtL==rtR){ info[rt]=v; return; }
-        if(pos<=mid) _update(ls,rtL,mid,pos,v);
+        if (rtL==rtR){ info[rt]=v; return; }
+        if (pos<=mid) _update(ls,rtL,mid,pos,v);
         else _update(rs,mid+1,rtR,pos,v);
         push_up(rt);
     }
 
     Info _query(int rt,int rtL,int rtR,int L,int R) {
-        if(rtR<L||R<rtL) return Info();
-        if(L<=rtL&&R>=rtR) return info[rt];
+        if (rtR<L||R<rtL) return Info();
+        if (L<=rtL&&R>=rtR) return info[rt];
         Info res=Info();
-        if(L<=mid&&R>mid) res=_query(ls,rtL,mid,L,R)+_query(rs,mid+1,rtR,L,R);
-        else if(L<=mid) res=_query(ls,rtL,mid,L,R);
+        if (L<=mid&&R>mid) res=_query(ls,rtL,mid,L,R)+_query(rs,mid+1,rtR,L,R);
+        else if (L<=mid) res=_query(ls,rtL,mid,L,R);
         else res=_query(rs,mid+1,rtR,L,R);
         return res;
     }
